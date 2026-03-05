@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Johnathan Thompson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F5F0E8;
+      --ink:     #1A1812;
+      --rust:    #A84B2F;
+      --forest:  #2C3D2E;
+      --warm:    #C4974A;
+      --muted:   #7A7060;
+      --rule:    #D4C9B0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--rust); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 4rem;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+    .hero-statement {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.85;
+      margin-bottom: 3rem;
+      border-left: 2px solid var(--warm);
+      padding-left: 1.5rem;
+    }
+    .hero-statement em {
+      color: var(--ink);
+      font-style: normal;
+      font-weight: 500;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: var(--forest);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .hero-cta:hover { background: var(--rust); transform: translateY(-2px); }
+    .hero-cta svg { transition: transform 0.2s; }
+    .hero-cta:hover svg { transform: translateX(4px); }
+
+    .hero-right {
+      background: var(--forest);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s 0.4s ease both;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(168,75,47,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(196,151,74,0.2) 0%, transparent 50%);
+    }
+    .hero-quote {
+      position: absolute;
+      bottom: 4rem; left: 3.5rem; right: 3.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(245,240,232,0.85);
+      line-height: 1.5;
+    }
+    .hero-quote cite {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-top: 1rem;
+    }
+    .flame-mark {
+      position: absolute;
+      top: 3rem; right: 3rem;
+      font-size: 4rem;
+      opacity: 0.15;
+      filter: blur(1px);
+      animation: flicker 4s ease-in-out infinite;
+    }
+
+    /* ── DIVIDER ── */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0 4rem;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+    }
+
+    /* ── STORY ── */
+    #story { background: var(--ink); color: var(--cream); }
+    #story .section-label { color: var(--warm); }
+    #story .section-title { color: var(--cream); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .story-body p {
+      color: rgba(245,240,232,0.75);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      font-size: 1.05rem;
+    }
+    .story-body p strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+    .burning-springs-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,151,74,0.3);
+      padding: 2.5rem;
+      position: sticky;
+      top: 6rem;
+    }
+    .bsc-date {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 1rem;
+    }
+    .bsc-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 1.25rem;
+    }
+    .bsc-body {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.8;
+    }
+    .bsc-divider {
+      border: none;
+      border-top: 1px solid rgba(196,151,74,0.25);
+      margin: 1.5rem 0;
+    }
+    .bsc-stat {
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .bsc-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--warm);
+    }
+    .bsc-stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.45);
+    }
+
+    /* ── WORK ── */
+    #work { background: var(--cream); }
+    .work-intro {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 4rem;
+      line-height: 1.85;
+    }
+    .roles-list { display: flex; flex-direction: column; gap: 0; }
+    .role-item {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      padding: 2.25rem 0;
+      border-top: 1px solid var(--rule);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .role-item:last-child { border-bottom: 1px solid var(--rule); }
+    .role-period {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+    .role-content {}
+    .role-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .role-org {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.75rem;
+    }
+    .role-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+    .role-tags {
+      display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end;
+    }
+    .tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--forest);
+      border: 1px solid var(--forest);
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
+    }
+
+    /* ── BELIEFS ── */
+    #beliefs { background: #EDEAE0; }
+    .beliefs-intro {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 4rem;
+    }
+    .beliefs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+    }
+    .belief-card {
+      background: var(--cream);
+      padding: 2.5rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .belief-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(26,24,18,0.08);
+    }
+    .belief-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--rule);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .belief-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+    }
+    .belief-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── CONNECT ── */
+    #connect {
+      background: var(--forest);
+      text-align: center;
+      padding: 8rem 4rem;
+    }
+    #connect .section-label { color: var(--warm); }
+    #connect .section-title {
+      color: var(--cream);
+      margin: 0 auto 1.5rem;
+      max-width: 600px;
+    }
+    .connect-sub {
+      color: rgba(245,240,232,0.6);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.85;
+    }
+    .connect-actions {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--warm);
+      color: var(--ink);
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #d4a855; transform: translateY(-2px); }
+    .btn-secondary {
+      border: 1px solid rgba(245,240,232,0.3);
+      color: rgba(245,240,232,0.8);
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--warm);
+      color: var(--warm);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(245,240,232,0.4);
+      letter-spacing: 0.05em;
+    }
+    .footer-origin {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 0.15; }
+      50%       { opacity: 0.25; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 5rem 1.5rem 3rem; }
+      .hero-right { min-height: 320px; }
+      section { padding: 5rem 1.5rem; }
+      .section-rule { margin: 0 1.5rem; }
+      .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .burning-springs-card { position: static; }
+      .role-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .role-tags { flex-direction: row; align-items: flex-start; }
+      .beliefs-grid { grid-template-columns: 1fr; gap: 2px; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-name">Johnathan Thompson</a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#beliefs">Beliefs</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Wirt County, West Virginia</p>
+      <h1 class="hero-name">Johnathan<br>Thompson</h1>
+      <p class="hero-statement">
+        I come from a place small enough that <em>everyone knew your name.</em><br>
+        I'm spending my career making sure that feeling doesn't disappear from the world.
+      </p>
+      <a href="#story" class="hero-cta">
+        Read My Story
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="flame-mark">🔥</div>
+      <blockquote class="hero-quote">
+        "The best communities aren't built by institutions. They're built by neighbors who decided to show up."
+        <cite>— Johnathan Thompson</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <hr class="section-rule"/>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="story-grid">
+      <div class="story-body reveal">
+        <p class="section-label">Origin</p>
+        <h2 class="section-title">Where I'm From Shaped Everything I'm Building Toward</h2>
+
+        <p>I grew up in Elizabeth, West Virginia — Wirt County. A county of fewer than 4,000 people where the economy had long moved on, but the people hadn't forgotten how to take care of each other. That's not nostalgia. That's a model.</p>
+
+        <p>I was a first-generation college student caught between two worlds. One side of my family had never entered the professional workforce. The other worked themselves to the bone and didn't always have the time to be present. <strong>I had no blueprint.</strong> What I had were people who showed up anyway.</p>
+
+        <p>A music teacher named Robert Lowe who handed me a restored 1930s saxophone he found in a Cleveland attic — not because he had to, but because he saw something worth investing in. A third-grade teacher who opened her home during my senior year so I could make marching band practice. People who had no obligation to me, but showed up like neighbors.</p>
+
+        <p>Those people changed the trajectory of my life. And I've spent every year since trying to figure out how to build more of that — in every team I join, every person I train, and every community I'm part of.</p>
+
+        <p><strong>That's not a soft value. That's a strategy.</strong> The most connected teams move faster. The most trusting organizations retain better. The most neighborly communities produce more. I'm here to build all three.</p>
+      </div>
+
+      <div class="burning-springs-card reveal">
+        <p class="bsc-date">May 9, 1863 — Burning Springs, WV</p>
+        <h3 class="bsc-headline">The Place That Fueled a Nation and Got Left Behind</h3>
+        <p class="bsc-body">
+          Burning Springs was once one of only two oil-producing fields in the entire world. A boomtown of 10,000 people grew overnight. Its wealth may have funded West Virginia's statehood. Confederate General William Jones burned it to the ground in what became the first military oil strike in the history of warfare.
+        </p>
+        <p class="bsc-body" style="margin-top:0.75rem">
+          The wealth left. The people stayed. The county never fully recovered.
+        </p>
+        <hr class="bsc-divider"/>
+        <div style="display:flex; flex-direction:column; gap:1rem">
+          <div class="bsc-stat">
+            <span class="bsc-stat-num">1 of 2</span>
+            <span class="bsc-stat-label">Oil fields on earth, 1861</span>
+          </div>
+          <div class="bsc-stat">
+            <span class="bsc-stat-num">10,000</span>
+            <span class="bsc-stat-label">People at peak population</span>
+          </div>
+          <div class="bsc-stat">
+            <span class="bsc-stat-num">&lt;4,000</span>
+            <span class="bsc-stat-label">County population today</span>
+          </div>
+        </div>
+        <hr class="bsc-divider"/>
+        <p class="bsc-body" style="font-style:italic; color:rgba(245,240,232,0.5)">
+          "My hometown gave everything it had and got forgotten anyway. That's the divide I'm spending my life trying to close."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-rule" style="margin:0; border-color: rgba(255,255,255,0.07)"/>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">Every Role Has Been a Lab<br>for the Same Experiment</h2>
+    <p class="work-intro reveal">
+      Whether training a new server to navigate a dinner rush or helping a friend rebuild after his world fell apart — my work has always been about helping people find clarity, capability, and confidence in high-pressure moments. That's what I'm bringing to operations, project management, and analytics.
+    </p>
+
+    <div class="roles-list">
+
+      <div class="role-item reveal">
+        <p class="role-period">Current</p>
+        <div class="role-content">
+          <p class="role-title">Service Professional & Trainer</p>
+          <p class="role-org">Olive Garden</p>
+          <p class="role-desc">
+            Managed high-volume service operations while onboarding and developing new team members. Responsible for maintaining consistency in guest experience during peak periods — translating to process design, real-time problem solving, and cross-functional team coordination under pressure.
+          </p>
+        </div>
+        <div class="role-tags">
+          <span class="tag">Operations</span>
+          <span class="tag">Training</span>
+          <span class="tag">CX</span>
+        </div>
+      </div>
+
+      <div class="role-item reveal">
+        <p class="role-period">In Progress</p>
+        <div class="role-content">
+          <p class="role-title">CRO Certification</p>
+          <p class="role-org">CXL Institute</p>
+          <p class="role-desc">
+            Pursuing certification in Conversion Rate Optimization — building a foundation in behavioral analytics, A/B testing methodology, data-driven decision making, and user experience analysis. Applying this lens to marketing, product, and growth operations.
+          </p>
+        </div>
+        <div class="role-tags">
+          <span class="tag">Analytics</span>
+          <span class="tag">Marketing</span>
+          <span class="tag">Growth</span>
+        </div>
+      </div>
+
+      <div class="role-item reveal">
+        <p class="role-period">Lifelong</p>
+        <div class="role-content">
+          <p class="role-title">First-Generation Builder</p>
+          <p class="role-org">Wirt County, West Virginia</p>
+          <p class="role-desc">
+            No blueprint. No network. No one who had done it before. Built self-direction, resourcefulness, and the ability to navigate unfamiliar environments from scratch — skills that transfer everywhere and depreciate nowhere.
+          </p>
+        </div>
+        <div class="role-tags">
+          <span class="tag">Resilience</span>
+          <span class="tag">Leadership</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-rule"/>
+
+  <!-- BELIEFS -->
+  <section id="beliefs">
+    <p class="section-label reveal">What I Believe</p>
+    <h2 class="section-title reveal">The Convictions That<br>Guide How I Work</h2>
+    <p class="beliefs-intro reveal">
+      These aren't values from a company handbook. They're conclusions I've drawn from where I've been — and the direction I'm heading.
+    </p>
+
+    <div class="beliefs-grid">
+      <div class="belief-card reveal">
+        <p class="belief-num">01</p>
+        <p class="belief-text">The most underutilized resource in any organization is people who already know the answer but don't feel safe saying it.</p>
+        <p class="belief-sub">Psychological safety isn't soft. It's a performance variable. My job as a leader is to create the conditions for it.</p>
+      </div>
+      <div class="belief-card reveal">
+        <p class="belief-num">02</p>
+        <p class="belief-text">Fragmentation is expensive. The cost of people not knowing each other shows up everywhere — in turnover, in misalignment, in missed ideas.</p>
+        <p class="belief-sub">Every team I join gets more connected than when I arrived. That's not an accident. It's intentional.</p>
+      </div>
+      <div class="belief-card reveal">
+        <p class="belief-num">03</p>
+        <p class="belief-text">You don't need the perfect background to do excellent work. You need the clarity to know what you're building and why.</p>
+        <p class="belief-sub">I came from Wirt County. I'll outwork, outlearn, and out-care almost anyone in the room. And I'll help the next person do the same.</p>
+      </div>
+      <div class="belief-card reveal">
+        <p class="belief-num">04</p>
+        <p class="belief-text">Data tells you what happened. Curiosity tells you why. The best operators need both.</p>
+        <p class="belief-sub">I'm building the analytical toolkit to back the instincts I've spent a lifetime sharpening.</p>
+      </div>
+      <div class="belief-card reveal">
+        <p class="belief-num">05</p>
+        <p class="belief-text">Showing up is a strategy. Most people underestimate how much ground you cover just by being genuinely present.</p>
+        <p class="belief-sub">A teacher opened her home so I could make band practice. A mentor handed me a saxophone. Presence changes lives.</p>
+      </div>
+      <div class="belief-card reveal">
+        <p class="belief-num">06</p>
+        <p class="belief-text">The world doesn't need more people optimizing for themselves. It needs more people building things that last longer than their ambition.</p>
+        <p class="belief-sub">My career is Chapter 1. The rest of the story is about what I can give back to places like where I came from.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section id="connect">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">If You're Building Something<br>That Needs People Who Care —<br>Let's Talk.</h2>
+    <p class="connect-sub">
+      I'm actively looking for opportunities in project management, business operations, marketing, and analytics. If you lead a team that values culture as much as output, I want to be in that room.
+    </p>
+    <div class="connect-actions">
+      <a href="mailto:your@email.com" class="btn-primary">Send Me a Message</a>
+      <a href="https://linkedin.com/in/yourprofile" class="btn-secondary" target="_blank">View LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-name">Johnathan Thompson</p>
+    <p class="footer-origin">Elizabeth, WV · Wirt County · Burning Springs</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
